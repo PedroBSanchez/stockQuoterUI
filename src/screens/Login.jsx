@@ -1,6 +1,7 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import LoginCard from "../components/LoginCard";
 
 import "./Login.css";
 
@@ -12,7 +13,15 @@ const Login = () => {
 
   return (
     <div className="login-background">
-      <p>teste</p>
+      <Container fluid>
+        <Row className="login-position">
+          <Col md={3} />
+          <Col md={4} />
+          <Col md={4}>
+            <LoginCard />
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };

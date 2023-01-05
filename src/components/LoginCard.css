@@ -1,0 +1,28 @@
+.login-card {
+  background-color: rgba(204, 203, 203, 0.274);
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 15px;
+  color: white;
+}
+
+.login-input-login {
+  background-color: rgba(204, 203, 203, 0);
+  color: white;
+  border: 3px solid white;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.login-input-login:focus {
+  background-color: rgba(204, 203, 203, 0);
+  color: white;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  box-shadow: 0 0 0 0;
+}
+
+.login-label-login {
+  font-family: "Inconsolata";
+}
