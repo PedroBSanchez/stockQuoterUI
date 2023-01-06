@@ -1,17 +1,18 @@
 .login-card {
-  background-color: rgba(204, 203, 203, 0.274);
+  background-color: rgba(255, 255, 255, 0.205);
   border: 1px solid rgb(255, 255, 255);
-  border-radius: 15px;
+  border-radius: 10px;
   color: white;
 }
 
 .login-input-login {
   background-color: rgba(204, 203, 203, 0);
   color: white;
-  border: 3px solid white;
+  border: 2px solid white;
   border-top: none;
   border-left: none;
   border-right: none;
+  width: 100%;
 }
 
 .login-input-login:focus {
@@ -21,8 +22,14 @@
   border-left: none;
   border-right: none;
   box-shadow: 0 0 0 0;
+  outline: none;
 }
 
 .login-label-login {
   font-family: "Inconsolata";
+}
+
+.login-register {
+  cursor: pointer;
+  text-decoration-line: underline;
 }
