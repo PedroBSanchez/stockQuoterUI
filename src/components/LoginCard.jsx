@@ -8,14 +8,14 @@ import axios from "axios";
 
 import { Button, FormControl } from "react-bootstrap";
 
-const LoginCard = () => {
+const LoginCard = ({ navigateHome }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const [newlogin, setNewLogin] = useState();
+  let newLogin;
 
   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
@@ -26,18 +26,31 @@ const LoginCard = () => {
     return false;
   };
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    const isValidEmail = validateEmail(email);
 
-  const handleRegister = () => {
-    const isValidEmail = validateEmail(newEmail);
+    if (!email || email == "" || !password || password == "") {
+      return swal({
+        title: "Required fields",
+        icon: "warning",
+        dangerMode: true,
+      });
+    }
     if (!isValidEmail) {
       return swal({
-        title: "Email invalid",
+        title: "Invalid email",
 
         icon: "warning",
         dangerMode: true,
       });
     }
+
+    login();
+  };
+
+  const handleRegister = () => {
+    const isValidEmail = validateEmail(newEmail);
+
     if (!newEmail || newEmail == "" || !newPassword || newPassword == "") {
       return swal({
         title: "Required fields",
@@ -46,13 +59,17 @@ const LoginCard = () => {
       });
     }
 
-    //Fazer requisição na api para registrar e verificar retorno
-    const isValidResiter = register();
+    if (!isValidEmail) {
+      return swal({
+        title: "Invalid email",
 
-    if (isValidResiter) {
-      console.log("ok");
-      //Proxima página
+        icon: "warning",
+        dangerMode: true,
+      });
     }
+
+    //Fazer requisição na api para registrar e verificar retorno
+    register();
   };
 
   const register = async () => {
@@ -63,30 +80,39 @@ const LoginCard = () => {
       })
       .then(function (response) {
         if (response.status == 200) {
-          setNewEmail("");
-          setNewPassword("");
-          setNewLogin(response.data);
-          console.log(response.data);
-          return true;
+          navigateHome(response.data);
         }
-        swal({
-          title: response.data.error ? response.data.error : "Error",
-          icon: "warning",
-          dangerMode: true,
-        });
-        return false;
       })
       .catch(function (error) {
-        console.log(error);
+        setNewEmail("");
+        setNewPassword("");
         swal({
-          title: "Error",
+          title: error.response.data ? error.response.data : "Error",
           icon: "warning",
           dangerMode: true,
         });
       });
   };
 
-  const login = async () => {};
+  const login = async () => {
+    await axios
+      .post(`http://localhost:8000/api/users/login`, {
+        email: email,
+        password: password,
+      })
+      .then(function (response) {
+        if (response.status == 200) {
+          navigateHome(response.data);
+        }
+      })
+      .catch(function (error) {
+        swal({
+          title: error.response.data ? error.response.data : "Error",
+          icon: "warning",
+          dangerMode: true,
+        });
+      });
+  };
 
   //Modal Settings
   const [show, setShow] = useState(false);
@@ -97,9 +123,21 @@ const LoginCard = () => {
     <>
       <div className="login-card p-4">
         <p className="login-label-login">Email</p>
-        <input className="login-input-login" />
+        <input
+          type={"email"}
+          className="login-input-login"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
         <p className="login-label-login mt-3">Password</p>
-        <input className="login-input-login" />
+        <input
+          type={"password"}
+          className="login-input-login"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
         <div className="row mt-3">
           <div className="col-md-3">
             <p className="login-register" onClick={handleShow}>
@@ -107,7 +145,9 @@ const LoginCard = () => {
             </p>
           </div>
           <div className="offset-md-6 col-md-3">
-            <button className="btn btn-success">Login</button>
+            <button className="btn btn-success" onClick={handleLogin}>
+              Login
+            </button>
           </div>
         </div>
       </div>
@@ -118,11 +158,12 @@ const LoginCard = () => {
         </Modal.Header>
         <Modal.Body>
           <FormControl
-            placeholder="Email"
             type="email"
+            placeholder="Email"
             onChange={(e) => setNewEmail(e.target.value)}
           />
           <FormControl
+            type="password"
             placeholder="Password"
             className="mt-3"
             onChange={(e) => setNewPassword(e.target.value)}
