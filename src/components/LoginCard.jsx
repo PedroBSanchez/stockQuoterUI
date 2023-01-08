@@ -74,7 +74,7 @@ const LoginCard = ({ navigateHome }) => {
 
   const register = async () => {
     await axios
-      .post(`http://localhost:8000/api/users/create`, {
+      .post(`${process.env.REACT_APP_BASE_URL}/api/users/create`, {
         email: newEmail,
         password: newPassword,
       })
@@ -96,7 +96,7 @@ const LoginCard = ({ navigateHome }) => {
 
   const login = async () => {
     await axios
-      .post(`http://localhost:8000/api/users/login`, {
+      .post(`${process.env.REACT_APP_BASE_URL}/api/users/login`, {
         email: email,
         password: password,
       })
