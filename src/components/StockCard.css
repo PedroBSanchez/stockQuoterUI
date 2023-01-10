@@ -1,0 +1,33 @@
+.stock-card {
+  box-shadow: 2px 2px 6px black;
+  background-color: rgb(240, 237, 237);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.stock-card:hover {
+  background-color: rgb(148, 146, 146);
+  transition: 1s;
+}
+
+.stock-delete {
+  color: black;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.stock-delete:hover {
+  color: red;
+  transition: 1s;
+}
+
+.stock-text {
+  font-family: "Almarai";
+  font-weight: 900;
+}
+
+.stock-value {
+  font-family: "Consolas";
+  font-weight: 500;
+}

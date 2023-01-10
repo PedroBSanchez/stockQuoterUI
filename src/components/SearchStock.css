@@ -1,0 +1,10 @@
+.add-stock {
+  cursor: pointer;
+  transition: 1s;
+}
+
+.add-stock:hover {
+  color: green;
+  transition: 1s;
+  border-radius: 15px;
+}

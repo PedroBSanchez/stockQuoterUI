@@ -5,6 +5,7 @@ import "./Home.css";
 import { Container } from "react-bootstrap";
 import UserCard from "../components/UserCard";
 import SearchStock from "../components/SearchStock";
+import StockCard from "../components/StockCard";
 
 const Home = () => {
   const [user, setUser] = useState();
@@ -18,7 +19,9 @@ const Home = () => {
   const getUser = async () => {
     await axios
       .get(`${process.env.REACT_APP_BASE_URL}/api/users/getuser`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("tokenApi")}`,
+        },
       })
       .then((response) => {
         console.log(response.data);
@@ -42,8 +45,17 @@ const Home = () => {
           </div>
           <div className="row text-center justify-content-center mt-5">
             <div className="col-md-8">
-              <SearchStock />
+              <SearchStock getUser={getUser} />
             </div>
+          </div>
+          <div className="row justify-content-start mt-5">
+            {user?.stocks.map((element, index) => {
+              return (
+                <div className="col-md-4 col-sm-6 mt-3">
+                  <StockCard key={index} getUser={getUser} stock={element} />
+                </div>
+              );
+            })}
           </div>
         </Container>
       </div>

@@ -9,7 +9,8 @@ const Login = () => {
   const [newLogin, setNewLogin] = useState();
   const navigate = useNavigate();
   const navigateHome = (userInfo) => {
-    localStorage.setItem("token", userInfo.token);
+    localStorage.clear();
+    localStorage.setItem("tokenApi", userInfo.token);
     navigate("/home");
   };
 
