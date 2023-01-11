@@ -31,3 +31,17 @@
   font-family: "Consolas";
   font-weight: 500;
 }
+
+.stock-high-low {
+  font-family: "Consolas";
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.stock-positive {
+  color: green;
+}
+
+.stock-negative {
+  color: red;
+}
